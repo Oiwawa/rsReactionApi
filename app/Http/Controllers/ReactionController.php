@@ -18,15 +18,6 @@ class ReactionController extends Controller
         return $reactions->toJson();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -34,7 +25,7 @@ class ReactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return string
      */
-    public function store(Request $request)
+    public function store(Request $request): string
     {
        $reaction = new Reaction();
        $reaction->name = $request->get('name');
@@ -49,9 +40,9 @@ class ReactionController extends Controller
      * @param  \App\Models\Reaction  $reaction
      * @return string
      */
-    public function show(Reaction $reaction)
+    public function show(Reaction $reaction): string
     {
-        $reaction = Reaction::query()->where('id', $reaction)->first();
+        $reaction = Reaction::where('id', $reaction->id)->first();
         return $reaction->toJson();
     }
 
