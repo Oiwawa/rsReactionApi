@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reaction;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ReactionController extends Controller
@@ -28,8 +29,7 @@ class ReactionController extends Controller
     public function store(Request $request): string
     {
        $reaction = new Reaction();
-       $reaction->name = $request->get('name');
-       $reaction->icon = $request->get('icon');
+       $reaction->fill($request->all());
        $reaction->save();
        return $reaction->toJson();
     }
@@ -46,4 +46,15 @@ class ReactionController extends Controller
         return $reaction->toJson();
     }
 
+    /**
+     * Destroys the specified resource.
+     *
+     * @param Reaction $reaction
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Reaction $reaction): JsonResponse
+    {
+        $reaction->delete();
+        return response()->json('ok');
+    }
 }
